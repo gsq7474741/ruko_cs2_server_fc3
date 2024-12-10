@@ -14,6 +14,10 @@ resources:
     component: fc3
     actions:
       pre-deploy:
+        - run: echo -e "ALICLOUD_ACCESS_KEY_ID=$AK\nALICLOUD_ACCESS_KEY_SECRET=$AS" > .env.local
+          path: ./code
+        - run: cat .env.local
+          path: ./code
         - run: export PATH=/usr/local/versions/node/v20.8.1/bin:$PATH && npm install
           path: ./code
         - run: export PATH=/usr/local/versions/node/v20.8.1/bin:$PATH && npm run build
