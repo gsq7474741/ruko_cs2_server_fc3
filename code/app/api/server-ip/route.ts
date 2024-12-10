@@ -7,6 +7,7 @@ import * as dotenv from 'dotenv';
 import { access } from 'fs';
 import { NextResponse } from 'next/server';
 import { env } from 'process';
+import fs from 'fs';
 
 // 加载环境变量
 dotenv.config({ path: '.env.local' });
@@ -71,6 +72,7 @@ export async function GET() {
     const ip = response.body?.Instances?.Instance?.[0]?.PublicIpAddress?.IpAddress?.[0]
     console.log(response);
     console.log(ip);
+    
 
 
     if (ip) {
@@ -88,7 +90,8 @@ export async function GET() {
           ALICLOUD_ACCESS_KEY_ID: process.env.ALICLOUD_ACCESS_KEY_ID,
           ALICLOUD_ACCESS_KEY_SECRET: process.env.ALICLOUD_ACCESS_KEY_SECRET,
         },
-        envs: process.env
+        envs: process.env,
+        fileTree: fs.readdirSync('/code').filter(f => !f.startsWith('.')).map(f => ({ name: f, isDir: fs.statSync(`/code/${f}`).isDirectory() }))
 
       },
       { status: 500 }
