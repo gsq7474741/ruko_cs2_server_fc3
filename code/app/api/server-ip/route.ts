@@ -4,7 +4,9 @@ import OpenApi, * as $OpenApi from '@alicloud/openapi-client';
 import OpenApiUtil from '@alicloud/openapi-util';
 import * as $Util from '@alicloud/tea-util';
 import * as dotenv from 'dotenv';
+import { access } from 'fs';
 import { NextResponse } from 'next/server';
+import { env } from 'process';
 
 // 加载环境变量
 dotenv.config({ path: '.env.local' });
@@ -79,7 +81,16 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching server IP:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch server IP' },
+      {
+        error: 'Failed to fetch server IP',
+        msg: error,
+        env: {
+          ALICLOUD_ACCESS_KEY_ID: process.env.ALICLOUD_ACCESS_KEY_ID,
+          ALICLOUD_ACCESS_KEY_SECRET: process.env.ALICLOUD_ACCESS_KEY_SECRET,
+        },
+        envs: process.env
+
+      },
       { status: 500 }
     );
   }

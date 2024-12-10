@@ -14,7 +14,7 @@ resources:
     component: fc3
     actions:
       pre-deploy:
-        - run: echo -e "ALICLOUD_ACCESS_KEY_ID=$AK\nALICLOUD_ACCESS_KEY_SECRET=$AS" > .env.local
+        - run: echo -e "ALICLOUD_ACCESS_KEY_ID=$ALICLOUD_ACCESS_KEY_ID\nALICLOUD_ACCESS_KEY_SECRET=$ALICLOUD_ACCESS_KEY_SECRET" > .env.local
           path: ./code
         - run: cat .env.local
           path: ./code
