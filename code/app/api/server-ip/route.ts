@@ -8,6 +8,11 @@ import { access } from 'fs';
 import { NextResponse } from 'next/server';
 import { env } from 'process';
 import fs from 'fs';
+import getConfig from 'next/config'
+
+// 在服务端组件/API 路由中使用
+const { serverRuntimeConfig } = getConfig()
+const { ALICLOUD_ACCESS_KEY_ID, ALICLOUD_ACCESS_KEY_SECRET } = serverRuntimeConfig
 
 // 加载环境变量
 dotenv.config({ path: '.env.local' });
@@ -15,8 +20,8 @@ dotenv.config({ path: '.env.local' });
 export async function GET() {
   try {
     // 获取环境变量
-    const accessKeyId = process.env.ALICLOUD_ACCESS_KEY_ID;
-    const accessKeySecret = process.env.ALICLOUD_ACCESS_KEY_SECRET;
+    const accessKeyId = ALICLOUD_ACCESS_KEY_ID;
+    const accessKeySecret = ALICLOUD_ACCESS_KEY_SECRET;
     console.log('Access Key ID:', accessKeyId);
     console.log('Access Key Secret:', accessKeySecret);
     const regionId = 'cn-beijing'; // Beijing region
