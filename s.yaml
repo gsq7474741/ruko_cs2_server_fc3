@@ -7,7 +7,7 @@ edition: 3.0.0
 name: start-next-app
 access: "default"
 vars:
-  region: "cn-beijing"
+  region: "cn-hongkong"
   functionName: "ruko-cs2-server"
 resources:
   start_next:
